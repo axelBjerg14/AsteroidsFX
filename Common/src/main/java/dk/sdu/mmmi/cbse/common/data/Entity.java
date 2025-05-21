@@ -6,13 +6,41 @@ import java.util.UUID;
 public class Entity implements Serializable {
 
     private final UUID ID = UUID.randomUUID();
-    
+
     private double[] polygonCoordinates;
     private double x;
     private double y;
     private double rotation;
+    private double height;
+    private double width;
+
+    private int health;
+    private boolean isHit;
     private float radius;
-            
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public boolean isHit() {
+        return isHit;
+    }
+
+    public void setHit(boolean hit) {
+        isHit = hit;
+    }
 
     public String getID() {
         return ID.toString();
@@ -26,7 +54,7 @@ public class Entity implements Serializable {
     public double[] getPolygonCoordinates() {
         return polygonCoordinates;
     }
-       
+
 
     public void setX(double x) {
         this.x =x;
@@ -36,7 +64,7 @@ public class Entity implements Serializable {
         return x;
     }
 
-    
+
     public void setY(double y) {
         this.y = y;
     }
@@ -53,11 +81,21 @@ public class Entity implements Serializable {
         return rotation;
     }
 
-    public void setRadius(float radius) {
-        this.radius = radius;
+    public double getWidth() {
+        return width;
     }
-        
-    public float getRadius() {
-        return this.radius;
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 }
