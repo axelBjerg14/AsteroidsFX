@@ -7,6 +7,7 @@ public class GameData {
     private final GameKeys keys = new GameKeys();
 
 
+
     public GameKeys getKeys() {
         return keys;
     }
@@ -28,4 +29,7 @@ public class GameData {
     }
 
 
+    public float getDelta() {
+        return 0.016f;
+    }
 }

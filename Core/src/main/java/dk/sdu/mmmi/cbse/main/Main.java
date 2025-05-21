@@ -27,6 +27,7 @@ public class Main extends Application {
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private final Pane gameWindow = new Pane();
+    private long lastFrameTime = 0;
 
     public static void main(String[] args) {
         launch(Main.class);
@@ -73,6 +74,7 @@ public class Main extends Application {
         for (IGamePluginService iGamePlugin : getPluginServices()) {
             iGamePlugin.start(gameData, world);
         }
+        System.out.println(world.getEntities());
         for (Entity entity : world.getEntities()) {
             Polygon polygon = new Polygon(entity.getPolygonCoordinates());
             polygons.put(entity, polygon);
@@ -129,7 +131,12 @@ public class Main extends Application {
     }
 
     private Collection<? extends IGamePluginService> getPluginServices() {
-        return ServiceLoader.load(IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        var plugins = ServiceLoader.load(IGamePluginService.class)
+                .stream()
+                .peek(p -> System.out.println("Discovered plugin: " + p.type().getName()))
+                .map(ServiceLoader.Provider::get)
+                .collect(toList());
+        return plugins;
     }
 
     private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
