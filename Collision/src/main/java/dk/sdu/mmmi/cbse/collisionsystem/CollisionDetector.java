@@ -8,27 +8,45 @@ import dk.sdu.mmmi.cbse.common.data.World;
 public class CollisionDetector implements IPostEntityProcessingService {
 
     public CollisionDetector() {
+
     }
 
     @Override
     public void process(GameData gameData, World world) {
-        // two for loops for all entities in the world
         for (Entity entity1 : world.getEntities()) {
             for (Entity entity2 : world.getEntities()) {
-
-                // if the two entities are identical, skip the iteration
                 if (entity1.getID().equals(entity2.getID())) {
-                    continue;                    
+                    continue;
                 }
 
-                // CollisionDetection
-                if (this.collides(entity1, entity2)) {
-                    world.removeEntity(entity1);
-                    world.removeEntity(entity2);
+                /* Debug collision logging
+                if (collides(entity1, entity2)) {
+                    System.out.println("Collision: " + entity1.getClass().getSimpleName() + " vs " + entity2.getClass().getSimpleName());
+                }*/
+
+                    if (collides(entity1, entity2)) {
+                    if (isBullet(entity1) && isAsteroid(entity2)) {
+                        entity1.setHit(true); // bullet
+                        entity2.setHit(true); // asteroid
+                    } else if (isBullet(entity2) && isAsteroid(entity1)) {
+                        entity2.setHit(true); // bullet
+                        entity1.setHit(true); // asteroid
+                    } else {
+                        // Optional: Handle other collisions (e.g., enemy vs player)
+                        entity1.setHit(true);
+                        entity2.setHit(true);
+                    }
                 }
             }
         }
+    }
 
+    private boolean isBullet(Entity e) {
+        return e.getClass().getSimpleName().equals("Bullet"); // or instanceof if allowed
+    }
+
+    private boolean isAsteroid(Entity e) {
+        return e instanceof dk.sdu.mmmi.cbse.common.asteroids.Asteroid;
     }
 
     public Boolean collides(Entity entity1, Entity entity2) {
