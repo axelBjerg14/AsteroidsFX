@@ -10,19 +10,20 @@ public class Entity implements Serializable {
     private double[] polygonCoordinates;
     private double x;
     private double y;
+    private double dx;
+    private double dy;
     private double rotation;
     private double height;
     private double width;
-
     private int health;
     private boolean isHit;
-    private float radius;
+    private double radius;
 
-    public float getRadius() {
+    public double getRadius() {
         return radius;
     }
 
-    public void setRadius(float radius) {
+    public void setRadius(double radius) {
         this.radius = radius;
     }
 
@@ -73,6 +74,22 @@ public class Entity implements Serializable {
         return y;
     }
 
+    public double getDX() {
+        return dx;
+    }
+
+    public void setDX(double dx) {
+        this.dx = dx;
+    }
+
+    public double getDY() {
+        return dy;
+    }
+
+    public void setDY(double dy) {
+        this.dy = dy;
+    }
+
     public void setRotation(double rotation) {
         this.rotation = rotation;
     }
@@ -88,8 +105,6 @@ public class Entity implements Serializable {
     public void setWidth(double width) {
         this.width = width;
     }
-
-
 
     public double getHeight() {
         return height;
